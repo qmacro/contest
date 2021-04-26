@@ -11,6 +11,7 @@ jobs:
 
       - name: MAIN0000
         run: |
+          rm -rf ${{ github.repository.name }}
           gh repo clone ${{ github.repository }}
           tree -a -I .git
 
