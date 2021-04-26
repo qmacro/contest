@@ -12,7 +12,7 @@ jobs:
       - name: MAIN0000
         run: |
           gh repo clone ${{ github.repository }}
-          tree
+          tree -a -I .git
 
       - name: MAIN0001
         run: |
