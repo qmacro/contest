@@ -6,8 +6,9 @@ jobs:
     runs-on: self-hosted
     steps:
 
-    - name: Show context
-      run: echo ${{ toJSON(github) }}
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
 
     - name: Label check
       if: contains(github.event.issue.labels.*.name, 'cont')
