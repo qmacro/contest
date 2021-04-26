@@ -8,6 +8,10 @@ jobs:
     runs-on: self-hosted
     steps:
 
+      - name: Events
+        run: |
+          gh api /repos/:owner/:repo/issues/${{ github.event.issue.number }}/events
+
       - name: Context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
