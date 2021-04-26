@@ -11,11 +11,9 @@ jobs:
 
       - name: MAIN0001
         run: |
-          contlabelevents=$(
-            gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' \
-              /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events
-          )
-          echo "$CODOC_CONTLABELEVENTS=$contlabelevents" >> $GITHUB_ENV
+          apiendpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
+          echo "API endpoint is $apiendpoint"
+          echo "EVENTCOUNT=$(gh api --jq '[.[] | (select( .event == \"labeled\" and .label.name == \"cont\"))] | length' $apiendpoint)" >> $GITHUB_ENV
 
       - name: MAIN0002
         run: env
