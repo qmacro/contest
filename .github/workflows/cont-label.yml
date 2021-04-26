@@ -11,10 +11,16 @@ jobs:
 
       - name: MAIN0001
         run: |
-          gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' \
-            /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events
+          contlabelevents=$(
+            gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' \
+              /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events
+          )
+          echo "$CODOC_CONTLABELEVENTS=$contlabelevents" >> $GITHUB_ENV
 
       - name: MAIN0002
+        run: env
+
+      - name: MAIN0003
         id: MYID0002
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
