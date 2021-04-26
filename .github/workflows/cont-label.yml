@@ -12,14 +12,11 @@ jobs:
       - name: MAIN0001
         run: |
           apiendpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
-          echo "API endpoint is $apiendpoint"
           echo "EVENTCOUNT=$(gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' $apiendpoint)" >> $GITHUB_ENV
 
       - name: MAIN0002
         run: env
 
       - name: MAIN0003
-        id: MYID0002
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        if: env.EVENTCOUNT == 1
+        run: echo OK
