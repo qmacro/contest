@@ -10,7 +10,7 @@ jobs:
 
       - name: Events
         run: |
-          gh api /repos/:owner/:repo/issues/${{ github.event.issue.number }}/events
+          gh api /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events
 
       - name: Context
         env:
