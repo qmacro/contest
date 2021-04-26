@@ -9,12 +9,9 @@ jobs:
     runs-on: self-hosted
     steps:
 
-      - name: gh version
-        run: gh --version
-
       - name: Events
         run: |
-          gh api /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events
+          gh api /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events | jq .
 
       - name: Context
         env:
