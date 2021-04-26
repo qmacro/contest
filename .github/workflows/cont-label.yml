@@ -13,7 +13,7 @@ jobs:
         run: |
           apiendpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
           echo "API endpoint is $apiendpoint"
-          echo "EVENTCOUNT=$(gh api --jq '[.[] | (select( .event == \"labeled\" and .label.name == \"cont\"))] | length' $apiendpoint)" >> $GITHUB_ENV
+          echo "EVENTCOUNT=$(gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' $apiendpoint)" >> $GITHUB_ENV
 
       - name: MAIN0002
         run: env
