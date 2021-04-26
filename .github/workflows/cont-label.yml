@@ -12,7 +12,7 @@ jobs:
       - name: MAIN0000
         run: |
           pwd
-          echo "Removing ${{ github.event.repository.name }}
+          echo "Removing ${{ github.event.repository.name }}"
           rm -rf ${{ github.event.repository.name }}
           gh repo clone ${{ github.repository }}
           tree -a -I .git
