@@ -1,5 +1,6 @@
 ---
 on:
+  workflow_dispatch:
   issues:
     types: [labeled]
 jobs:
@@ -7,6 +8,9 @@ jobs:
     if: github.event.label.name == 'cont'
     runs-on: self-hosted
     steps:
+
+      - name: gh version
+        run: gh --version
 
       - name: Events
         run: |
