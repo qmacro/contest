@@ -9,11 +9,12 @@ jobs:
     runs-on: self-hosted
     steps:
 
-      - name: Events
+      - name: MAIN0001
         run: |
           gh api /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events | jq .
 
-      - name: Context
+      - name: MAIN0002
+        id: MYID0002
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
