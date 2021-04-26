@@ -11,7 +11,8 @@ jobs:
 
       - name: MAIN0001
         run: |
-          gh api /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events | jq .
+          gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' \
+            /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events
 
       - name: MAIN0002
         id: MYID0002
