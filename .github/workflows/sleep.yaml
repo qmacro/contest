@@ -1,0 +1,13 @@
+---
+on:
+  workflow_dispatch:
+jobs:
+  main:
+    runs-on: self-hosted
+    steps:
+
+      - name: Sleep
+        run: sleep 30
+
+      - name: Env
+        run: env
