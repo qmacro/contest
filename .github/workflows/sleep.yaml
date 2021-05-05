@@ -7,7 +7,7 @@ jobs:
     steps:
 
       - name: Sleep
-        run: sleep 30
+        run: sleep 10
 
       - name: Env
         run: env
