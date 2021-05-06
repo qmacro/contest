@@ -12,7 +12,7 @@ jobs:
     steps:
 
       - name: pre
-        run: echo "Checking for $LABEL"
+        run: jq . "$GITHUB_EVENT_PATH"
 
       - name: Authenticate gh to repo
         id: auth_gh
