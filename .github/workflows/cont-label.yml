@@ -31,9 +31,8 @@ jobs:
           count=$(gh api --jq "[.[]|(select(.event==\"labeled\" and .label.name==\"$LABEL\"))] | length" $endpoint)
           echo "EVENTCOUNT=$count" >> $GITHUB_ENV
 
-      - name: Check env
-        run: env
-
-      - name: MAIN0003
+      - name: Ask for SAP Community profile URL
+        id: community_profile
         if: env.EVENTCOUNT == 1
-        run: echo OK
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "Thank you for your valuable contribution, ${{ github.event.issue.user.login }}! Please add your SAP Community profile URL in a reply to this comment; don't include any other text, just the URL (e.g. <https://people.sap.com/your.userid>). We can then [recognize](https://github.com/SAP-docs/contribution-guidelines/blob/main/docs/recognition.md) your contribution in SAP Community. Thank you."
