@@ -26,4 +26,4 @@ jobs:
           echo ${{ github.event.repository.name }}
           tree
           #gh pr edit ${{ github.event.number }} --add-label $LABEL
-        working-directory: ${{ github.event.repository.name }}
+        working-directory: contest
