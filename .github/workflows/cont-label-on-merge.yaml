@@ -1,0 +1,22 @@
+---
+on:
+  pull_request:
+    types: [merged]
+
+jobs:
+
+  assign-contribution-label:
+    env:
+      LABEL: "cont"
+    runs-on: ubuntu-20.04
+
+    steps:
+      - id: github
+        env:
+          CONTEXT: ${{ toJSON(github) }}
+        run: echo "$CONTEXT"
+      - id: values
+        run: |
+          echo ${{ github.event_name }}
+          echo ${{ github.event.action }}
+          echo ${{ github.event.pull_request.merged }}
