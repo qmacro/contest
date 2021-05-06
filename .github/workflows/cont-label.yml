@@ -29,7 +29,8 @@ jobs:
       - name: Count number of times label has been added
         id: count_add
         run: |
-          endpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
+          objectnr=${{ github.event.issue.number || github.event.pull_request.number }}
+          endpoint="repos/${{ github.repository }}/issues/$objectnr/events"
           count=$(gh api --jq "[.[]|(select(.event==\"labeled\" and .label.name==\"$LABEL\"))] | length" $endpoint)
           echo "EVENTCOUNT=$count" >> $GITHUB_ENV
 
