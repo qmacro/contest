@@ -5,11 +5,11 @@ on:
     types: [labeled]
   issues:
     types: [labeled]
+env:
+  LABEL: "cont"
 jobs:
   main:
     runs-on: self-hosted
-    env:
-      LABEL: "cont"
     if: github.event.label.name == ${{ env.LABEL }}
     steps:
 
