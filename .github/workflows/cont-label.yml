@@ -28,7 +28,7 @@ jobs:
         id: count_add
         run: |
           endpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
-          count=$(gh api --cache 10m --jq "[.[]|(select(.event==\"labeled\" and .label.name==\"$LABEL\"))] | length" $endpoint)
+          count=$(gh api --jq "[.[]|(select(.event==\"labeled\" and .label.name==\"$LABEL\"))] | length" $endpoint)
           echo "EVENTCOUNT=$count" >> $GITHUB_ENV
 
       - name: Check env
