@@ -15,8 +15,8 @@ jobs:
     if: github.event.label.name == 'cont'
 
     steps:
-      - id: event
-        run: echo ${{ github.event_name }}
+      - id: github
+        run: echo ${{ toJSON(github) }}
 
       - id: env
         run: jq . "$GITHUB_EVENT_PATH"
