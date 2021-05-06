@@ -12,7 +12,7 @@ jobs:
     env:
       LABEL: "cont"
     runs-on: ubuntu-20.04
-    if: github.event.label.name == "cont"
+    if: github.event.label.name == 'cont'
 
     steps:
 
