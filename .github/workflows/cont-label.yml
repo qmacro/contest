@@ -32,7 +32,7 @@ jobs:
 
       - id: issue_details
         name: Determine issue related details
-        if: event_name == 'issues'
+        if: github.event_name == 'issues'
         run: |
           echo "SUBCOMMAND=issue" >> $GITHUB_ENV
           echo "OBJECTNR=${{ github.event.issue.number }}" >> $GITHUB_ENV
@@ -40,7 +40,7 @@ jobs:
 
       - id: pull_request_details
         name: Determine pull request related details
-        if: event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         run: |
           echo "SUBCOMMAND=pr" >> $GITHUB_ENV
           echo "OBJECTNR=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
