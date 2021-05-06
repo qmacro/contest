@@ -5,18 +5,16 @@ on:
 
 jobs:
 
-  assign-contribution-label:
+  assign-label-on-merge:
+    if: github.event.pull_request.merged
     env:
       LABEL: "cont"
     runs-on: ubuntu-20.04
 
     steps:
-      - id: github
-        env:
-          CONTEXT: ${{ toJSON(github) }}
-        run: echo "$CONTEXT"
-      - id: values
-        run: |
-          echo ${{ github.event_name }}
-          echo ${{ github.event.action }}
-          echo ${{ github.event.pull_request.merged }}
+      - id: auth_gh
+        name: Authenticate gh to repo
+        run: echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+
+      - id: assign_label
+        run: gh pr edit ${{ github.event.number }} --add-label "$LABEL"
