@@ -28,8 +28,5 @@ jobs:
           gh repo clone ${{ github.repository }}
 
       - id: assign_label
-        run: |
-          gh --help
-          #gh pr edit ${{ github.event.number }} --add-label "$LABEL"
-          echo working dir should be ${{ github.event.repository.name }}
+        run: gh pr edit ${{ github.event.number }} --add-label "$LABEL"
         working-directory: ${{ github.event.repository.name }}
