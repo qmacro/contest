@@ -25,7 +25,7 @@ jobs:
 
       - id: auth_gh
         name: Authenticate gh to repo
-        run: echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        run: echo ${{ github.token }} | gh auth login --with-token
 
       - id: clean_clone
         name: Clean working area and clone repo
