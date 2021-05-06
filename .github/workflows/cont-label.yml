@@ -13,7 +13,7 @@ jobs:
         run: jq . "$GITHUB_EVENT_PATH"
 
       - name: Auth login
-        run: gh auth login --with-token <(echo ${{ secrets.GITHUB_TOKEN }})
+        run: echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
 
       - name: MAIN0000
         run: |
