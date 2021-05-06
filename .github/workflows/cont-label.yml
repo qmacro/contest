@@ -7,26 +7,31 @@ jobs:
   main:
     if: github.event.label.name == 'cont'
     runs-on: self-hosted
+    env:
+      LABEL: "cont"
     steps:
 
       - name: pre
-        run: jq . "$GITHUB_EVENT_PATH"
+        run: echo "Checking for $LABEL"
 
-      - name: Auth login
+      - name: Authenticate gh to repo
+        id: auth_gh
         run: echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
 
-      - name: MAIN0000
+      - name: Clean working area and clone repo
+        id: clean_clone
         run: |
-          env
           rm -rf ${{ github.event.repository.name }}
           gh repo clone ${{ github.repository }}
 
-      - name: MAIN0001
+      - name: Count number of times label has been added
+        id: count_add
         run: |
-          apiendpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
-          echo "EVENTCOUNT=$(gh api --jq '[.[] | (select( .event == "labeled" and .label.name == "cont"))] | length' $apiendpoint)" >> $GITHUB_ENV
+          endpoint="repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/events"
+          count=$(gh api --cache 10m --jq "[.[]|(select(.event==\"labeled\" and .label.name==\"$LABEL\"))] | length" $endpoint)
+          echo "EVENTCOUNT=$count" >> $GITHUB_ENV
 
-      - name: MAIN0002
+      - name: Check env
         run: env
 
       - name: MAIN0003
