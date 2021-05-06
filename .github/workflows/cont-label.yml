@@ -12,6 +12,9 @@ jobs:
       - name: pre
         run: jq . "$GITHUB_EVENT_PATH"
 
+      - name: Auth login
+        run: gh auth login --with-token <(echo ${{ secrets.GITHUB_TOKEN }})
+
       - name: MAIN0000
         run: |
           env

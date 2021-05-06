@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Count the number of assignments of the specified label to an issue
+
+declare ownerrepo=${1:?Specify owner/repo} # <owner>/<repo>
+declare issuenr=${2:?Specify issue nr}     # <nr>
+declare label=${3:?Specify label}          # <label>
+
+gh api \
+  --jq "[
+          .[]
+          | (select( .event == \"labeled\" and .label.name == \"$label\"))
+        ]
+        | length
+        " \
+  "repos/$ownerrepo/issues/$issuenr/events"
