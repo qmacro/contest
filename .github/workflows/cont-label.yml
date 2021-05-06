@@ -36,4 +36,4 @@ jobs:
         if: env.EVENTCOUNT == 1
         working-directory: ${{ github.event.repository.name }}
         run: |
-          gh issue comment ${{ github.event.issue.number }} --body "Thank you for your valuable contribution, @${{ github.event.issue.user.login }}! Please add your SAP Community profile URL in a reply to this comment; don't include any other text, just the URL (e.g. `https://people.sap.com/your.userid`). We can then [recognize your contribution in SAP Community](https://github.com/SAP-docs/contribution-guidelines/blob/main/docs/recognition.md). Thanks!"
+          printf "Thank you for your valuable contribution, @${{ github.event.issue.user.login }}! So that we can [recognize your contribution in SAP Community](https://github.com/SAP-docs/contribution-guidelines/blob/main/docs/recognition.md), please tell us your SAP Community profile URL in a reply to this comment; don't include any other text, just the URL on its own, like this:\n\n\`\`\`\nhttps://people.sap.com/your-user-id\n\`\`\`\n\nThanks!" | gh issue comment ${{ github.event.issue.number }} --body-file -
