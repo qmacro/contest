@@ -16,7 +16,9 @@ jobs:
 
     steps:
       - id: github
-        run: echo ${{ toJSON(github) }}
+        env:
+          CONTEXT: ${{ toJSON(github) }}
+        run: echo "$CONTEXT"
 
       - id: env
         run: jq . "$GITHUB_EVENT_PATH"
