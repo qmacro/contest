@@ -7,10 +7,10 @@ on:
     types: [labeled]
 jobs:
   main:
-    if: github.event.label.name == 'cont'
     runs-on: self-hosted
     env:
       LABEL: "cont"
+    if: github.event.label.name == ${{ env.LABEL }}
     steps:
 
       - name: pre
