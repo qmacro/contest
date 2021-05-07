@@ -1,24 +1,38 @@
----
+name: SAP Community profile URL requester
+
+# What the execution context is:
+# The assignment of a label to an issue or pull request indicating
+# that the contribution was valuable.
+
+# What it does:
+# Adds a comment to the issue or pull request asking the author for
+# their SAP Community profile URL ('community ID').
+
+# Why we need it:
+# So that we can properly recognize the contribution in SAP Community.
+
+# What's important to know:
+# The label is specified at the start of the 'community-id-requester'
+# job as an environment variable LABEL, and also in the job-level condition.
+# Also, it adds a comment only after the first time the label is added.
+
 on:
-  workflow_dispatch:
   pull_request_target:
     types: [labeled]
   issues:
     types: [labeled]
 
+
 jobs:
 
   community-id-requester:
+
     env:
       LABEL: "cont"
     runs-on: ubuntu-20.04
     if: github.event.label.name == 'cont'
 
     steps:
-      - id: github
-        env:
-          CONTEXT: ${{ toJSON(github) }}
-        run: echo "$CONTEXT"
 
       - id: auth_gh
         name: Authenticate gh to repo
@@ -31,7 +45,7 @@ jobs:
           gh repo clone ${{ github.repository }}
 
       - id: issue_details
-        name: Determine issue related details
+        name: Determine related details if issue
         if: github.event_name == 'issues'
         run: |
           echo "OBJECTTYPE=issue" >> $GITHUB_ENV
@@ -39,7 +53,7 @@ jobs:
           echo "CONTRIBUTOR=${{ github.event.issue.user.login }}" >> $GITHUB_ENV
 
       - id: pull_request_details
-        name: Determine pull request related details
+        name: Determine related details if pull request
         if: github.event_name == 'pull_request_target'
         run: |
           echo "OBJECTTYPE=pr" >> $GITHUB_ENV
